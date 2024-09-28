@@ -2,26 +2,130 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #000;
+  color: white;
+}
+
+:where(body, html) {
+  overflow-x: hidden;
+}
+
+:where(body, html)::-webkit-scrollbar {
+  width: 0px;
+}
+
+img {
+  width: 100%;
+  height: 100%;
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  .fontless {
+    font-weight: 300 !important;
   }
+
+  .trans {
+    transition: 1s ease-in-out;
+  }
+
+  .flex-all {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  .flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .bi {
+    color: #000;
+    font-size: 16px;
+    z-index: 1;
+  }
+
+  .flex-bet {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .letter {
+    letter-spacing: 1px;
+  }
+
+  .borders {
+    border: 1px solid red;
+  }
+
+  .flex-colm {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+  }
+
+  .space {
+    word-spacing: 5px;
+  }
+
+  .shadow {
+    filter: drop-shadow(0 0 5px #64dcdd);
+  }
+
+  .glass {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .glasser{
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .ScrollerColor::-webkit-scrollbar {
+    width: 10px;
+    border-radius: 5px;
+    background-color: #fff;
+  }
+
+  .ScrollerColor::-webkit-scrollbar-track {
+    width: 10px;
+    border-radius: 5px;
+    background-color: #fff;
+  }
+
+  .Scroller::-webkit-scrollbar-thumb {
+    background-color: #000;
+    width: 10px;
+  }
+
+  .bgColor {
+    background-color: rgba(2, 6, 23, .7);
+    backdrop-filter: blur(8px);
+  }
+
+}
+
+.Scroller::-webkit-scrollbar {
+  width: 0px;
+}
+
+.bgImage {
+  background-image: url('https://unblast.com/wp-content/uploads/2021/01/Space-Background-Image-8.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
