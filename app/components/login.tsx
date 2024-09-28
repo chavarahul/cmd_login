@@ -42,12 +42,12 @@ const Login = () => {
     }
 
     return (
-        <section className="Scroller h-2/3 w-[62%] rounded-[10px] glass font-mono shadow-xl backdrop-blur"
+        <section className="Scroller h-2/3 w-[62%] max-md:w-[90%] rounded-[10px] glass font-mono shadow-xl backdrop-blur"
         >
             <div
-                className="w-full relative h-10 flex items-end justify-start bg-slate-900 rounded-tr-[10px] rounded-tl-[10px]"
+                className="w-full relative h-10 flex items-end max-md:justify-between justify-start bg-slate-900 rounded-tr-[10px] rounded-tl-[10px]"
             >
-                <div className="w-1/4 -ml-1 h-[76%] relative flex-center">
+                <div className="w-1/4 max-md:w-1/2 -ml-1 h-[76%] relative flex-center">
                     <div className="w-[90%] h-full flex-bet relative glasser rounded-tr-[10px] rounded-tl-[10px] pt-1 pl-2">
                         <div className="flex mb-1">
                             <LoginIcon
