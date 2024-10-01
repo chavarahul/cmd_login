@@ -1,14 +1,18 @@
 'use client';
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import LoginIcon from '@mui/icons-material/Login';
 import InputFeild from './common/InputFeild';
 import CloseIcon from '@mui/icons-material/Close';
+import gsap from 'gsap';
 
 const Login = () => {
 
     const [isEmailSubmitted, setIsEmailSubmitted] = useState(false);
     const [isNameSubmitted, setIsNameSubmitted] = useState(false);
     const [isPasswordSubmitted, setIsPasswordSubmitted] = useState(false);
+
+    const emailInputRef = useRef<HTMLInputElement>(null);
+    const passwordInputRef = useRef<HTMLInputElement>(null);
 
     const [formData, setFormData] = useState({
         email: '',
@@ -26,8 +30,14 @@ const Login = () => {
         if (e.key === 'Enter') {
             if (feild === 'name' && formData.name) {
                 setIsNameSubmitted(true);
+                setTimeout(()=>{
+                    emailInputRef?.current?.focus();
+                },1);
             } else if (feild === 'email' && formData.email) {
-                setIsEmailSubmitted(true)
+                setIsEmailSubmitted(true);
+                setTimeout(()=>{
+                    passwordInputRef?.current?.focus();
+                },1)
             } else if (feild === 'password' && formData.password) {
                 setIsPasswordSubmitted(true);
             }
@@ -40,6 +50,18 @@ const Login = () => {
         setIsPasswordSubmitted(false);
         setFormData({ email: '', password: '', name: '' })
     }
+
+    useEffect(()=>{
+        gsap.fromTo('.up',{
+            y:'-150px',
+            opacity:0
+        },{
+            y:0,
+            opacity:1,
+            duration:0.8,
+            stagger:0.2
+        })
+    },[isPasswordSubmitted])
 
     return (
         <section className="Scroller h-2/3 w-[62%] max-md:w-[90%] rounded-[10px] glass font-mono shadow-xl backdrop-blur"
@@ -62,10 +84,10 @@ const Login = () => {
                     <p>@rahul.developer</p>
                 </div>
             </div>
-            <div className="py-4 px-3">
-                <p className='flex'>{">  "}Hey there! We are thrilled to connect! 🔗 </p>
+            <div className="py-4 px-3 Scroller overflow-y-scroll h-[90%] ">
+                <p className='flex overflow-y-hidden'><span className=''>{">  "}Hey there! We are thrilled to connect! 🔗</span> </p>
                 <div className="mt-2 flex-colmn">
-                    <p>{">  "}Let{"'"}s start with <span className="text-white">your name</span></p>
+                    <p className='overflow-y-hidden'><span className="">{">  "}Let{"'"}s start with <span className="text-white">your name</span></span></p>
                     <div className="ml-4 mt-1 flex">
                         <InputFeild
                             label='Enter name'
@@ -80,7 +102,7 @@ const Login = () => {
                 {
                     isNameSubmitted && (
                         <div className="mt-2 flex-colmn">
-                            <p>{">  "}Awesome! And what{"'"}s  <span className='text-white'>your email?</span></p>
+                            <p>{">  "}Awesome {formData.name}! And what{"'"}s  <span className='text-white'>your email?</span></p>
                             <div className="ml-4 mt-1 flex">
                                 <InputFeild
                                     type="text"
@@ -89,6 +111,7 @@ const Login = () => {
                                     value={formData.email}
                                     onChange={handleChange}
                                     onKeyDown={(e) => handleKeyDown(e, 'email')}
+                                    ref={emailInputRef}
                                 />
                             </div>
                         </div>
@@ -106,6 +129,7 @@ const Login = () => {
                                     value={formData.password}
                                     onChange={handleChange}
                                     onKeyDown={(e) => handleKeyDown(e, 'password')}
+                                    ref={passwordInputRef}
                                 />
                             </div>
                         </div>
@@ -113,7 +137,8 @@ const Login = () => {
                 }
                 {
                     isPasswordSubmitted && (
-                        <div className='mt-2 flex-colmn'>
+                        <div className='mt-2 flex-colmn overflow-y-hidden'>
+                            <div className="up">
                             <p>{">  "}Beautiful! Here{"'"}s what we{"'"}ve got:</p>
                             <div className="ml-4 mt-1 flex-colmn">
                                 <p>Name: {formData.name}</p>
@@ -132,6 +157,7 @@ const Login = () => {
                                     Reset
                                 </button>
                             </div>
+                            </div>
                         </div>
                     )
                 }
@@ -140,4 +166,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default Login;
