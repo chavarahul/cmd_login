@@ -51,7 +51,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
 
         return (
             <div className='mt-1 flex'>
-                <p className='text-white opacity-50'>{displayedLabel}:</p>
+                <p className='text-white opacity-50 w-max'>{displayedLabel}:</p>
                 <input
                     ref={ref}
                     type={type}

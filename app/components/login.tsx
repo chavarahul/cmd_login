@@ -67,7 +67,7 @@ const Login = () => {
         <section className="Scroller h-2/3 w-[62%] max-md:w-[90%] rounded-[10px] glass font-mono shadow-xl backdrop-blur"
         >
             <div
-                className="w-full relative h-10 flex items-end max-md:justify-between justify-start bg-slate-900 rounded-tr-[10px] rounded-tl-[10px]"
+                className="w-full relative h-10 flex max-sm:px-2 items-end max-md:justify-between justify-start bg-slate-900 rounded-tr-[10px] rounded-tl-[10px]"
             >
                 <div className="w-1/4 max-md:w-1/2 -ml-1 h-[76%] relative flex-center">
                     <div className="w-[90%] h-full flex-bet relative glasser rounded-tr-[10px] rounded-tl-[10px] pt-1 pl-2">
@@ -80,7 +80,7 @@ const Login = () => {
                         <CloseIcon className='text-white w-3 h-3 mb-1 mr-1' />
                     </div>
                 </div>
-                <div className="w-1/2  relative h-[70%] flex-center">
+                <div className="w-1/2 max-sm:text-sm  relative h-[70%] flex-center">
                     <p>@rahul.developer</p>
                 </div>
             </div>
