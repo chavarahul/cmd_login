@@ -73,11 +73,11 @@ const Login = () => {
                     <div className="w-[90%] h-full flex-bet relative glasser rounded-tr-[10px] rounded-tl-[10px] pt-1 pl-2">
                         <div className="flex mb-1">
                             <LoginIcon
-                                className='w-4 h-4 mt-1'
+                                className='w-2.5 h-2.5 '
                             />
                             <p className='ml-3 text-md'>Login</p>
                         </div>
-                        <CloseIcon className='text-white w-5 h-5 mb-1 mr-1' />
+                        <CloseIcon className='text-white w-3 h-3 mb-1 mr-1' />
                     </div>
                 </div>
                 <div className="w-1/2  relative h-[70%] flex-center">
