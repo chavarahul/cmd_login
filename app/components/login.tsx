@@ -15,22 +15,30 @@ const Login = () => {
 
     const emailInputRef = useRef<HTMLInputElement>(null);
     const passwordInputRef = useRef<HTMLInputElement>(null);
-    const clickSound = useRef(new Audio('https://res.cloudinary.com/dxfujspwu/video/upload/v1727880847/spacebar-click-keyboard-199448_zgcysk.mp3'));
-
+    const clickSound = useRef<HTMLAudioElement | null>(null);
+    
     const [formData, setFormData] = useState({
         email: '',
         name: '',
         password: ''
     })
 
+    useEffect(()=>{
+        if(typeof window != 'undefined'){
+            clickSound.current = new Audio('https://res.cloudinary.com/dxfujspwu/video/upload/v1727880847/spacebar-click-keyboard-199448_zgcysk.mp3');
+        }
+    },[])
+
     const handleVolume = () => {
         setVolume((vol) => {
             const newVolume = !vol;
-            clickSound.current.volume = newVolume ? 1 : 0 ;
+            if (clickSound.current) {
+                clickSound.current.volume = newVolume ? 1 : 0;
+            }
             return newVolume;
         });
-    }
-
+    };
+    
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const name = e.target.name;
         const value = e.target.value;
@@ -48,7 +56,7 @@ const Login = () => {
         playSound();
 
         if (e.key === 'Enter') {
-            clickSound.current.pause();
+            clickSound.current?.pause();
             if (feild === 'name' && formData.name) {
                 setIsNameSubmitted(true);
                 setTimeout(() => {
