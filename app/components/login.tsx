@@ -2,7 +2,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import LoginIcon from '@mui/icons-material/Login';
 import InputFeild from './common/InputFeild';
-import CloseIcon from '@mui/icons-material/Close';
+import VolumeUpIcon from '@mui/icons-material/VolumeUp';
+import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 import gsap from 'gsap';
 
 const Login = () => {
@@ -10,9 +11,11 @@ const Login = () => {
     const [isEmailSubmitted, setIsEmailSubmitted] = useState(false);
     const [isNameSubmitted, setIsNameSubmitted] = useState(false);
     const [isPasswordSubmitted, setIsPasswordSubmitted] = useState(false);
+    const [volume,setVolume] = useState(true);
 
     const emailInputRef = useRef<HTMLInputElement>(null);
     const passwordInputRef = useRef<HTMLInputElement>(null);
+    const clickSound = useRef(new Audio('https://res.cloudinary.com/dxfujspwu/video/upload/v1727880847/spacebar-click-keyboard-199448_zgcysk.mp3'));
 
     const [formData, setFormData] = useState({
         email: '',
@@ -20,24 +23,42 @@ const Login = () => {
         password: ''
     })
 
+    const handleVolume = () => {
+        setVolume((vol) => {
+            const newVolume = !vol;
+            clickSound.current.volume = newVolume ? 1 : 0 ;
+            return newVolume;
+        });
+    }
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const name = e.target.name;
         const value = e.target.value;
         setFormData((d) => ({ ...d, [name]: value }));
     }
 
+    const playSound = () => {
+        if (clickSound.current) {
+            clickSound.current.currentTime = 0;
+            clickSound.current.play();
+        }
+    }
+
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, feild: string) => {
+        playSound();
+
         if (e.key === 'Enter') {
+            clickSound.current.pause();
             if (feild === 'name' && formData.name) {
                 setIsNameSubmitted(true);
-                setTimeout(()=>{
+                setTimeout(() => {
                     emailInputRef?.current?.focus();
-                },1);
+                }, 1);
             } else if (feild === 'email' && formData.email) {
                 setIsEmailSubmitted(true);
-                setTimeout(()=>{
+                setTimeout(() => {
                     passwordInputRef?.current?.focus();
-                },1)
+                }, 1)
             } else if (feild === 'password' && formData.password) {
                 setIsPasswordSubmitted(true);
             }
@@ -51,17 +72,17 @@ const Login = () => {
         setFormData({ email: '', password: '', name: '' })
     }
 
-    useEffect(()=>{
-        gsap.fromTo('.up',{
-            y:'-150px',
-            opacity:0
-        },{
-            y:0,
-            opacity:1,
-            duration:0.8,
-            stagger:0.2
+    useEffect(() => {
+        gsap.fromTo('.up', {
+            y: '50px',
+            opacity: 0
+        }, {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            stagger: 0.2
         })
-    },[isPasswordSubmitted])
+    }, [isPasswordSubmitted])
 
     return (
         <section className="Scroller h-2/3 w-[62%] max-md:w-[90%] rounded-[10px] glass font-mono shadow-xl backdrop-blur"
@@ -77,7 +98,9 @@ const Login = () => {
                             />
                             <p className='ml-3 text-md'>Login</p>
                         </div>
-                        <CloseIcon className='text-white w-3 h-3 mb-1 mr-1' />
+                        {
+                            volume ? <VolumeUpIcon onClick={handleVolume} className='text-white cursor-pointer w-2 h-2 mb-1 mr-1' /> : <VolumeOffIcon onClick={handleVolume} className='text-white w-2 cursor-pointer h-2 mb-1 mr-1' />
+                        }
                     </div>
                 </div>
                 <div className="w-1/2 max-sm:text-sm  relative h-[70%] flex-center">
@@ -85,7 +108,7 @@ const Login = () => {
                 </div>
             </div>
             <div className="py-4 px-3 Scroller overflow-y-scroll h-[90%] ">
-                <p className='flex overflow-y-hidden'><span className=''>{">  "}Hey there! We are thrilled to connect! 🔗</span> </p>
+                <p className='flex overflow-y-hidden'><span className=''>{">  "}Hey there👋! We are thrilled to connect! 🔗</span> </p>
                 <div className="mt-2 flex-colmn">
                     <p className='overflow-y-hidden'><span className="">{">  "}Let{"'"}s start with <span className="text-white">your name</span></span></p>
                     <div className="ml-4 mt-1 flex">
@@ -137,26 +160,26 @@ const Login = () => {
                 }
                 {
                     isPasswordSubmitted && (
-                        <div className='mt-2 flex-colmn overflow-y-hidden'>
+                        <div className='mt-2 flex-colmn'>
                             <div className="up">
-                            <p>{">  "}Beautiful! Here{"'"}s what we{"'"}ve got:</p>
-                            <div className="ml-4 mt-1 flex-colmn">
-                                <p>Name: {formData.name}</p>
-                                <p>Email: {formData.email}</p>
-                            </div>
-                            <div className="ml-4 mt-4 flex">
-                                <button
-                                    className='rounded bg-indigo-500 px-3 py-1 text-base text-white transition-opacity hover:opacity-90'
-                                >
-                                    Submit
-                                </button>
-                                <button
-                                    onClick={handleReset}
-                                    className='rounded bg-slate-100 px-3 py-1 ml-5 text-base text-black transition-opacity hover:opacity-90'
-                                >
-                                    Reset
-                                </button>
-                            </div>
+                                <p>{">  "}Beautiful! Here{"'"}s what we{"'"}ve got:</p>
+                                <div className="ml-4 mt-1 flex-colmn">
+                                    <p>Name: {formData.name}</p>
+                                    <p>Email: {formData.email}</p>
+                                </div>
+                                <div className="ml-4 mt-4 flex">
+                                    <button
+                                        className='rounded bg-indigo-500 px-3 py-1 text-base text-white transition-opacity hover:opacity-90'
+                                    >
+                                        Submit
+                                    </button>
+                                    <button
+                                        onClick={handleReset}
+                                        className='rounded bg-slate-100 px-3 py-1 ml-5 text-base text-black transition-opacity hover:opacity-90'
+                                    >
+                                        Reset
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     )

@@ -18,7 +18,6 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
             const targetText = label.split('');
             let currentIndex = 0;
             const time = 80;
-            // const soundEffect = new Audio('https://res.cloudinary.com/dxfujspwu/video/upload/v1727786018/audio2_opuvqo.mp3');
 
             const randomChars = () => {
                 const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()';
@@ -29,8 +28,6 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
             setDisplayedLabel(newText.join(''))
 
             const interval = setInterval(() => {
-                // soundEffect.currentTime = 0;
-                // soundEffect.play();
                 if (currentIndex < targetText.length){
                     newText = newText.map((_,index:number)=>(
                         index < currentIndex ? targetText[index] : randomChars()
@@ -45,7 +42,9 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
                 }
             }, time);
 
-            return ()=> clearInterval(interval)
+            return ()=>{ 
+                clearInterval(interval);
+            }
 
         }, [label]);
 
